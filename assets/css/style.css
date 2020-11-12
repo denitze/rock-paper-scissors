@@ -109,9 +109,14 @@ label {
     background: #fff;
 }
 
-img {
+.choices img {
     height:5rem;
     width:5rem;
+}
+
+.result img {
+    height:2rem;
+    width:2rem;
 }
 
 .choice:hover {

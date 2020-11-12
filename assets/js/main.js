@@ -15,33 +15,33 @@ const roundsDiv = document.getElementById("rounds")
 const roundCount = document.getElementById("round-count")
 const roundNow = document.getElementById("roundNow")
 const roundTotal = document.getElementById("roundTotal")
-let limit=1;
-var tries =1;
+let currentRound=1;
+let maxRounds =1;
 
 
-// Funktion, die prüft, welcher Radiobutton gecheckt ist.
+// 2. Funktion, die prüft, welcher Radiobutton gecheckt ist.
 // übergibt den tries Wert weiter an die nächste Funktion
-function radio() {
+function radioRounds() {
     let five= document.getElementById("five").checked;
     let ten = document.getElementById("ten").checked;
     let fifteen = document.getElementById("fifteen").checked;
     let twenty = document.getElementById("twenty").checked;
   
     if (five === true) {
-      tries = 5;
+        maxRounds = 5;
     } else if (ten === true) {
-      tries = 10;
+        maxRounds = 10;
     } else if (fifteen === true) {
-      tries = 15;
+        maxRounds = 15;
     } else if (twenty === true) {
-      tries = 20;
+        maxRounds = 20;
     }
-    return tries;
+    return maxRounds;
   }
   
 
 
-// 2. Random Auswahl vom Computer erzeugen
+// 3. Random Auswahl vom Computer erzeugen
 // => Array mit den drei Möglichkeiten erstellen
 // => eine Random Nummer zwischen 0 und 2 generieren mit Math.random
 function getComputerChoice(){
@@ -50,7 +50,7 @@ function getComputerChoice(){
     return choices[randomNumber]
 }
 
-// 3. Damit im HTML nicht "r" sondern Rock steht werden die buchstaben in Wörter konvertiert
+// 4. Damit im HTML nicht "r" sondern Rock steht werden die buchstaben in Wörter konvertiert
 function convertWords(letter) {
     if(letter ==="r") {
         return "Rock"
@@ -61,7 +61,7 @@ function convertWords(letter) {
 }
 }
 
-// 4. Funktion für den Fall, dass der User gewinnt! 
+// 5. Funktion für den Fall, dass der User gewinnt! 
 function win(userChoice, computerChoice) {
     const smallUserWord = "user".fontsize(2).sup();
     const smallCompWord = "comp".fontsize(2).sup();
@@ -71,13 +71,12 @@ function win(userChoice, computerChoice) {
     comScore.innerHTML = comPoints
 
     result.innerHTML = `${convertWords(userChoice)}${smallUserWord} beats ${convertWords(computerChoice)}${smallCompWord} You win!`;
-    console.log("Für Marv " +userChoice);
     userChoices.classList.add('green-glow');
     setTimeout(() => userChoices.classList.remove('green-glow'), 300)
 
 }
 
-// 5. Funktion für den Fall, dass der Computer gewinnt und der User verliert!
+// 6. Funktion für den Fall, dass der Computer gewinnt und der User verliert!
 function lose(userChoice, computerChoice) {
     comPoints++;
     userScore.innerHTML = userPoints
@@ -90,7 +89,7 @@ function lose(userChoice, computerChoice) {
     setTimeout(() =>userChoices.classList.remove('red-glow'), 300)
 }
 
-// 6. Funktion für den Fall, dass beide das gleiche Zeichen auswählen.
+// 7. Funktion für den Fall, dass beide das gleiche Zeichen auswählen.
 function draw(userChoice) {
     userScore.innerHTML = userPoints
     comScore.innerHTML = comPoints
@@ -100,11 +99,11 @@ function draw(userChoice) {
     setTimeout( () => userChoices.classList.remove('grey-glow'), 300)
 }
 
-//7. Funktion, die das Spiel überhaupt starten lässt. Hier werden die Wahl des Computers mit dem Klick des Users verglichen und zur jeweiligen funktion (win, lose oder draw) geleitet. 
+//8. Funktion, die das Spiel überhaupt starten lässt. Hier werden die Wahl des Computers mit dem Klick des Users verglichen und zur jeweiligen funktion (win, lose oder draw) geleitet. 
 function game(userChoice) {
     //wenn die Funktion aufgerufen wird, werden folgende Daten im HTML und CSS ausgelöst: 
-    roundNow.innerHTML = limit;
-    roundTotal.innerHTML = tries
+    roundNow.innerHTML = currentRound;
+    roundTotal.innerHTML = maxRounds
     roundsDiv.style.display = "none"
     roundCount.style.display ="block"
 
@@ -129,39 +128,39 @@ function game(userChoice) {
 
 //if-funktion, die prüft, ob die aktuelle Spielrunde die letzte ist oder ob noch eine weitere Runde gespielt werden kann. 
 
-    if (limit < tries) {
-        console.log(limit, tries);
+    if (currentRound < maxRounds) {
+        console.log(currentRound, maxRounds);
         console.log(userPoints, comPoints);
-    } else if (limit == tries && userPoints > comPoints) {
-            result.innerHTML ='You have won!!'
-        } else if (limit == tries && userPoints < comPoints) {
-            result.innerHTML ='You have lost!!'
+    } else if (currentRound == maxRounds && userPoints > comPoints) {
+            result.innerHTML ='<img src="assets/img/trophy.png" alt=""> Congratulations!! You have won!! <img src="assets/img/trophy.png" alt="">';
+        } else if (currentRound == maxRounds && userPoints < comPoints) {
+            result.innerHTML ='Oh No! You have lost!!'
         } else {
-            result.innerHTML = "It's a draw"
+            result.innerHTML = "It's a draw! Try again? Press restart!"
         }
-        limit++;
+        currentRound++;
     }
   
-// 8. Funktion, die die funktion Game beim Klick von eden Icons auslöst.
+// 9. Funktion, die die funktion Game beim Klick von eden Icons auslöst.
 // Die Funktionen Radio und Game werden nur abgerufen, solange der endgültige Spielstand noch nicht erreicht ist. 
 // ---> Zu viel doppelt! Hier muss noch aufgeräumt werden!!! 
 function main() {
      
         rock.addEventListener("click", () => {
-            if (limit <= tries) {
-            radio();
+            if (currentRound <= maxRounds) {
+            radioRounds();
             game("r")
         }
         })
-        paper.addEventListener("click", function() {
-            if (limit <= tries) {
-            radio()
+        paper.addEventListener("click", () => {
+            if (currentRound <= maxRounds) {
+            radioRounds()
             game("p")
             }
         })
-        scissors.addEventListener("click", function() {
-            if (limit <= tries) {
-            radio() 
+        scissors.addEventListener("click", () => {
+            if (currentRound <= maxRounds) {
+            radioRounds()
             game("s")
             }
         })
@@ -169,5 +168,5 @@ function main() {
 
 
 
-// 9. Funktion wird ausgeführt. 
+// 10. Funktion wird ausgeführt. 
 main();
