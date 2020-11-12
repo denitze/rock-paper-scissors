@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Rock Paper Scissors</h1>
+    </header>
+    
+    <main>
+        <div id="round-tabelle">
+            <h3>How many rounds? </h3>
+            <div id="rounds">
+            <form id="radios" action="">
+                <div>
+                    <input type="radio" value=5 name="count-rounds" id="five" class="count-rounds" checked>
+                    <label for="five">5</label>
+                    <input type="radio" class="count-rounds" value=10 name="count-rounds" id="ten">
+                    <label for="ten">10</label> <br>
+                </div>
+                <div>
+                    <input type="radio" class="count-rounds" value=15 name="count-rounds" id="fifteen">
+                    <label for="fifteen">15</label>
+                    <input type="radio" class="count-rounds" value=20 name="count-rounds" id="twenty">
+                    <label for="twenty">20</label>
+                </div>
+            </div>
+                <div id="round-count">
+                    <span id="roundNow"></span>/<span id="roundTotal"></span>
+                </div>
+            </form>
+       
+            <div id="rounds-to-play"></div>
+        </div>
+    
+        <div id="spielstand">
+            <div id="user" class="spieler">User</div>
+            <div id="computer" class="spieler">Comp</div>
+            <span id="user-score">0</span>:<span id="computer-score">0</span>
+        </div>
+    
+        <div class="result">
+            <p>Let's play!</p>
+        </div>
+    
+        <div class="choices">
+            <div class="choice" id="r" >
+                <img src="assets/img/hand-rock-regular.svg" alt="">
+            </div>
+            <div class="choice" id="p">
+                <img src="assets/img/hand-paper-regular.svg" alt="">
+            </div>
+            <div class="choice" id="s">
+                <img src="assets/img/hand-scissors-regular.svg" alt="">
+            </div>
+        </div>
+    
+        <h2 id="make-move">Make your move!</h2>
+    </main>
+    <footer>
+        <h3><a href="">restart</a></h3>
+    </footer>
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
